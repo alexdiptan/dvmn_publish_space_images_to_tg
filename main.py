@@ -20,9 +20,9 @@ def save_image(img_url: str, image_path: str):
 def fetch_spacex_last_launch(launch_url: str) -> list:
     response = requests.get(launch_url)
     response.raise_for_status()
-    luanch_pictures = response.json()['links']['flickr']['original']
+    launch_pictures = response.json()['links']['flickr']['original']
 
-    return luanch_pictures
+    return launch_pictures
 
 
 def get_file_name(file_url: str) -> tuple:
@@ -65,4 +65,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
