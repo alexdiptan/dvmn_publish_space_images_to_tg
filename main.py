@@ -58,7 +58,7 @@ def main():
     for spacex_image_url in spacex_image_urls:
         save_image(spacex_image_url, image_folder)
 
-    apod_image_urls = fetch_apod_images(apod_token)
+    apod_image_urls = fetch_apod_images(apod_token, 30)
     for apod_image_url in apod_image_urls:
         save_image(apod_image_url, image_folder)
 
