@@ -1,3 +1,4 @@
+import datetime
 from dotenv import load_dotenv
 import requests
 
@@ -37,7 +38,7 @@ def get_file_name(file_url: str) -> tuple:
 def fetch_apod_images(token: str, images_count: int = 10) -> list:
     params = {'api_key': token,
               'count': images_count
-    }
+              }
     url = 'https://api.nasa.gov/planetary/apod'
     response = requests.get(url, params=params)
     response.raise_for_status()
@@ -47,20 +48,44 @@ def fetch_apod_images(token: str, images_count: int = 10) -> list:
     return apod_images
 
 
+def date_normalize(image_date: str) -> datetime:
+    normalized_date = datetime.datetime.strptime(image_date, "%Y%m%d%H%M%S")
+    return normalized_date
+
+
+def fetch_epic_images(url: str) -> list:
+    response = requests.get(url)
+    response.raise_for_status()
+    epic_images = []
+
+    for image in response.json():
+        current_image_date = date_normalize(image["identifier"])
+        epic_images.append(f'https://api.nasa.gov/EPIC/archive/natural/{current_image_date.year}/'
+                           f'{current_image_date.month}/{current_image_date.day}/png/'
+                           f'{image["image"]}.png?api_key=DEMO_KEY')
+
+    return epic_images
+
+
 def main():
     load_dotenv()
     apod_token = os.environ['APOD_API_KEY']
     image_folder = 'images'
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
-    spacex_launch_url = 'https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a'
-    spacex_image_urls = fetch_spacex_last_launch(spacex_launch_url)
-    for spacex_image_url in spacex_image_urls:
-        save_image(spacex_image_url, image_folder)
+    epic_images_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY')
 
-    apod_image_urls = fetch_apod_images(apod_token, 30)
-    for apod_image_url in apod_image_urls:
-        save_image(apod_image_url, image_folder)
+    for epic_image_url in epic_images_urls:
+        save_image(epic_image_url, image_folder)
+
+    # spacex_launch_url = 'https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a'
+    # spacex_image_urls = fetch_spacex_last_launch(spacex_launch_url)
+    # for spacex_image_url in spacex_image_urls:
+    #     save_image(spacex_image_url, image_folder)
+    #
+    # apod_image_urls = fetch_apod_images(apod_token, 30)
+    # for apod_image_url in apod_image_urls:
+    #     save_image(apod_image_url, image_folder)
 
 
 if __name__ == '__main__':
