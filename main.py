@@ -73,19 +73,18 @@ def main():
     image_folder = 'images'
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
-    epic_images_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY')
-
-    for epic_image_url in epic_images_urls:
+    epic_image_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY')
+    for epic_image_url in epic_image_urls:
         save_image(epic_image_url, image_folder)
 
-    # spacex_launch_url = 'https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a'
-    # spacex_image_urls = fetch_spacex_last_launch(spacex_launch_url)
-    # for spacex_image_url in spacex_image_urls:
-    #     save_image(spacex_image_url, image_folder)
-    #
-    # apod_image_urls = fetch_apod_images(apod_token, 30)
-    # for apod_image_url in apod_image_urls:
-    #     save_image(apod_image_url, image_folder)
+    spacex_launch_url = 'https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a'
+    spacex_image_urls = fetch_spacex_last_launch(spacex_launch_url)
+    for spacex_image_url in spacex_image_urls:
+        save_image(spacex_image_url, image_folder)
+
+    apod_image_urls = fetch_apod_images(apod_token, 30)
+    for apod_image_url in apod_image_urls:
+        save_image(apod_image_url, image_folder)
 
 
 if __name__ == '__main__':
