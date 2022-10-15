@@ -1,4 +1,5 @@
 import argparse
+import os
 from pathlib import Path
 
 import requests
@@ -7,8 +8,7 @@ from dotenv import load_dotenv
 import common_functions as com_func
 
 
-def fetch_spacex_last_launch(image_folder: str, launch_id: str = 'latest') -> None:
-    print(image_folder, launch_id)
+def fetch_spacex_launch_images(image_folder: str, launch_id: str = 'latest') -> None:
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
@@ -20,7 +20,7 @@ def fetch_spacex_last_launch(image_folder: str, launch_id: str = 'latest') -> No
 
 def main():
     load_dotenv()
-    image_folder = 'images'
+    image_folder = os.environ['IMAGES_FOLDER']
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     parser = argparse.ArgumentParser()
@@ -28,9 +28,9 @@ def main():
     args = parser.parse_args()
 
     if args.launch_id:
-        fetch_spacex_last_launch(image_folder, args.launch_id)
+        fetch_spacex_launch_images(image_folder, args.launch_id)
     else:
-        fetch_spacex_last_launch(image_folder)
+        fetch_spacex_launch_images(image_folder)
 
 
 if __name__ == '__main__':

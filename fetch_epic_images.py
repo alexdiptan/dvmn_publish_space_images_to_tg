@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import requests
@@ -22,7 +23,7 @@ def fetch_epic_images(url: str) -> list:
 
 def main():
     load_dotenv()
-    image_folder = 'images'
+    image_folder = os.environ['IMAGES_FOLDER']
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     epic_image_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY')
