@@ -71,4 +71,3 @@ if __name__ == '__main__':
         telegram_functions.upload_document(bot, telegram_chanel_id, args.image_path)
     else:
         main()
-
