@@ -4,13 +4,14 @@ import telegram
 from dotenv import load_dotenv
 
 
-load_dotenv()
-telegram_token = os.environ['TELEGRAM_TOKEN']
-telegram_chanel_id = os.environ['TELEGRAM_CHANEL_ID']
+def send_message(tg_token: str, tg_chanel_id: str, message: str) -> None:
+    bot = telegram.Bot(token=tg_token)
+    bot.send_message(chat_id=tg_chanel_id, text=message)
 
-bot = telegram.Bot(token=telegram_token)
-updates = bot.get_updates()
-print(bot.get_me())
-# print(updates[2])
 
-bot.send_message(chat_id=telegram_chanel_id, text="Test message here.")
+if __name__ == '__main__':
+    load_dotenv()
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    telegram_chanel_id = os.environ['TELEGRAM_CHANEL_ID']
+
+    send_message(telegram_token, telegram_chanel_id, 'Test message here.')
