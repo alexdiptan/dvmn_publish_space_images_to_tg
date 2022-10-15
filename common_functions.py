@@ -28,4 +28,3 @@ def save_image(img_url: str, image_path: str):
 
     with open(filepath, 'wb') as file:
         file.write(response.content)
-
