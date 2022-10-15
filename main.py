@@ -43,7 +43,7 @@ def main():
             logging.info(f'Fetching images from EPIC API')
             fetch_epic_images.fetch_epic_images('https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY')
             logging.info(f'Fetching images from SpaceX API')
-            fetch_spacex_images.fetch_spacex_launch_images(image_folder, '5eb87d47ffd86e000604b38a')
+            fetch_spacex_images.fetch_spacex_launch_images(image_folder)
             logging.info(f'Fetching images done')
         else:
             logging.info(f'Start publishing images')
