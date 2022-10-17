@@ -25,7 +25,7 @@ def fetch_apod_images(image_folder: str, token: str, images_count: int = 5) -> N
 def main():
     load_dotenv()
     apod_token = os.environ['APOD_API_KEY']
-    image_folder = os.environ['IMAGES_FOLDER']
+    image_folder = 'images'
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     parser = argparse.ArgumentParser()
