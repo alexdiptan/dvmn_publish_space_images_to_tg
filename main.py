@@ -8,9 +8,6 @@ from random import shuffle
 import telegram
 from dotenv import load_dotenv
 
-import fetch_apod_images
-import fetch_epic_images
-import fetch_spacex_images
 import telegram_functions
 
 
@@ -35,15 +32,35 @@ def publish_images(bot_instance, images: list, sleep_timer: int = 4) -> None:
 def main():
     Path(image_folder).mkdir(parents=True, exist_ok=True)
     image_files = get_images_from_folder(image_folder)
+    connection_try_count = 0
+    connection_wait_long = 30
+    connection_wait_short = 5
 
     while True:
-        logging.info(f'Start publishing images')
-        shuffle(image_files)
-        if args.publication_frequency:
-            publish_images(bot, image_files, int(args.publication_frequency))
-        else:
-            publish_images(bot, image_files)
-        logging.info(f'Publishing images done')
+        try:
+            logging.info(f'Start publishing images.')
+            shuffle(image_files)
+
+            if args.publication_frequency:
+                publish_images(bot, image_files, int(args.publication_frequency))
+                connection_try_count = 0
+            else:
+                publish_images(bot, image_files)
+                connection_try_count = 0
+            logging.info(f'Publishing images done.')
+        except ConnectionError:
+            logging.info(f'ConnectionError. There is no internet connection.')
+            connection_try_count += 1
+        except telegram.error.NetworkError:
+            logging.info(f'NetworkError. There is no internet connection.')
+            connection_try_count += 1
+
+        if connection_try_count == 1:
+            logging.info(f'Something wrong with your internet connection. Sleep {connection_wait_short} sec.')
+            time.sleep(connection_wait_short)
+        elif connection_try_count == 2:
+            logging.info(f'Something wrong with your internet connection. Sleep {connection_wait_long} sec.')
+            time.sleep(connection_wait_long)
 
 
 if __name__ == '__main__':
