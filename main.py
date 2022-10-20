@@ -22,7 +22,7 @@ def get_images_from_folder(images_path) -> list:
     return files_in_path
 
 
-def publish_images(bot_instance, images: list, sleep_timer: int = 4) -> None:
+def publish_images(bot_instance, images: list, sleep_timer: int) -> None:
     for image in images:
         telegram_functions.upload_document(bot_instance, telegram_chanel_id, image)
         logging.info(f'Publishing images {image} done. Next image will published after {sleep_timer} hours. Sleep.')
@@ -40,17 +40,9 @@ def main():
         try:
             logging.info(f'Start publishing images.')
             shuffle(image_files)
-
-            if args.publication_frequency:
-                publish_images(bot, image_files, int(args.publication_frequency))
-                connection_try_count = 0
-            else:
-                publish_images(bot, image_files)
-                connection_try_count = 0
+            publish_images(bot, image_files, args.publication_frequency)
+            connection_try_count = 0
             logging.info(f'Publishing images done.')
-        except ConnectionError:
-            logging.info(f'ConnectionError. There is no internet connection.')
-            connection_try_count += 1
         except telegram.error.NetworkError:
             logging.info(f'NetworkError. There is no internet connection.')
             connection_try_count += 1
@@ -65,7 +57,6 @@ def main():
 
 if __name__ == '__main__':
     load_dotenv()
-    apod_token = os.environ['APOD_API_KEY']
     telegram_token = os.environ['TELEGRAM_TOKEN']
     telegram_chanel_id = os.environ['TELEGRAM_CHANEL_ID']
     image_folder = 'images'
@@ -76,8 +67,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--image_path", help="Path to image which should be published to telegram.")
-    parser.add_argument("-f", "--publication_frequency", help="How often need to publish photo(in hours). "
-                                                              "Four(4) hours by default.")
+    parser.add_argument("-f", "--publication_frequency", default=4, type=int,
+                        help="How often need to publish photo(in hours). Four(4) hours by default.")
     args = parser.parse_args()
 
     if args.image_path:

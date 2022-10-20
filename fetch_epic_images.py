@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import requests
@@ -22,9 +23,10 @@ def fetch_epic_images(url: str, payload: dict) -> list:
 
 def main():
     load_dotenv()
+    apod_token = os.environ['APOD_API_KEY']
     image_folder = 'images'
     Path(image_folder).mkdir(parents=True, exist_ok=True)
-    url_params = {'api_key': 'DEMO_KEY'}
+    url_params = {'api_key': apod_token}
 
     epic_image_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural', url_params)
     for epic_image_url in epic_image_urls:

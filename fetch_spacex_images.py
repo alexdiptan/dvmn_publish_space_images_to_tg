@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import common_functions as com_func
 
 
-def fetch_spacex_launch_images(image_folder: str, launch_id: str = 'latest') -> None:
+def fetch_spacex_launch_images(image_folder: str, launch_id: str) -> None:
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
@@ -23,13 +23,10 @@ def main():
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-l", "--launch_id", help="SpaceX launch id, if you have.")
+    parser.add_argument("-l", "--launch_id", default='latest', help="SpaceX launch id, if you have.")
     args = parser.parse_args()
 
-    if args.launch_id:
-        fetch_spacex_launch_images(image_folder, args.launch_id)
-    else:
-        fetch_spacex_launch_images(image_folder)
+    fetch_spacex_launch_images(image_folder, args.launch_id)
 
 
 if __name__ == '__main__':

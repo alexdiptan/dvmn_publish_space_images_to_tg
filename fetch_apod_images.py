@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import common_functions as com_func
 
 
-def fetch_apod_images(image_folder: str, token: str, images_count: int = 5) -> None:
+def fetch_apod_images(image_folder: str, token: str, images_count: int) -> None:
     params = {'api_key': token,
               'count': images_count
               }
@@ -29,13 +29,10 @@ def main():
     Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--count_to_save", help="Files count to save.")
+    parser.add_argument("-c", "--count_to_save", default=5, help="Files count to save.")
     args = parser.parse_args()
 
-    if args.count_to_save:
-        fetch_apod_images(image_folder, apod_token, args.count_to_save)
-    else:
-        fetch_apod_images(image_folder, apod_token)
+    fetch_apod_images(image_folder, apod_token, args.count_to_save)
 
 
 if __name__ == '__main__':
