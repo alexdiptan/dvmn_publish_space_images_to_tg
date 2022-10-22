@@ -17,7 +17,7 @@ def get_images_from_folder(images_path) -> list:
 
     for path, directories, files in tree:
         for file in files:
-            files_in_path.append(os.path.join(f'{path}/{file}'))
+            files_in_path.append(Path(path, file))
 
     return files_in_path
 
@@ -32,6 +32,7 @@ def publish_images(bot_instance, images: list, sleep_timer: int) -> None:
 def main():
     Path(image_folder).mkdir(parents=True, exist_ok=True)
     image_files = get_images_from_folder(image_folder)
+    print(image_files)
     connection_try_count = 0
     connection_wait_long = 30
     connection_wait_short = 5

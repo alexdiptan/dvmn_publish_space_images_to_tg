@@ -21,7 +21,8 @@ def get_file_name_and_file_extension(file_url: str) -> tuple:
     return file_name, file_extension
 
 
-def save_image(img_url: str, image_path: str, payload: dict = {'api_key': 'DEMO_KEY'}):
+def save_image(img_url: str, image_path: str, token: str):
+    payload = {'api_key': token}
     original_image_name = get_file_name_and_file_extension(img_url)[0]
     image_path = Path.cwd() / image_path / original_image_name
 
