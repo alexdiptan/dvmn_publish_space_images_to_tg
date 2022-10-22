@@ -7,7 +7,7 @@ APOD(https://api.nasa.gov/)
 EPIC(https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY)
 spacex(https://api.spacexdata.com/v5/launches/)
 ### Переменные окружения
-Для работы скрипта используются следующие, обязательные переменные окружения:
+Для работы скрипта используются следующие, обязательные, переменные окружения:
 TELEGRAM_TOKEN
 TELEGRAM_CHANEL_ID
 ### Запуск скрипта main.py
