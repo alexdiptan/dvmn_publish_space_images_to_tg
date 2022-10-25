@@ -24,13 +24,14 @@ def fetch_epic_images(url: str, api_token: str) -> list:
 
 def main():
     load_dotenv()
-    token = os.getenv(os.environ['NASA_API_KEY'], default="DEMO_KEY")
+    token = os.getenv('NASA_API_KEY', default='DEMO_KEY')
     image_folder = 'images'
     Path(image_folder).mkdir(parents=True, exist_ok=True)
+    payload = {'api_key': token}
 
     epic_image_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural', token)
     for epic_image_url in epic_image_urls:
-        com_func.save_image(epic_image_url, image_folder, token)
+        com_func.save_image(epic_image_url, image_folder, payload)
 
 
 if __name__ == '__main__':
