@@ -8,7 +8,7 @@ from random import shuffle
 import telegram
 from dotenv import load_dotenv
 
-import telegram_functions
+import common_functions
 
 
 def get_images_from_folder(images_path) -> list:
@@ -24,7 +24,7 @@ def get_images_from_folder(images_path) -> list:
 
 def publish_images(bot_instance, images: list, sleep_timer: int) -> None:
     for image in images:
-        telegram_functions.upload_document(bot_instance, telegram_chanel_id, image)
+        common_functions.upload_document_to_tg(bot_instance, telegram_chanel_id, image)
         logging.info(f'Publishing images {image} done. Next image will published after {sleep_timer} hours. Sleep.')
         time.sleep(sleep_timer * 3600)
 
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.image_path:
-        telegram_functions.upload_document(bot, telegram_chanel_id, args.image_path)
+        common_functions.upload_document_to_tg(bot, telegram_chanel_id, args.image_path)
     else:
         main()

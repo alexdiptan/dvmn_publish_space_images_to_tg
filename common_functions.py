@@ -30,3 +30,8 @@ def save_image(img_url: str, image_path: str, payload: dict):
 
     with open(image_path, 'wb') as file:
         file.write(response.content)
+
+
+def upload_document_to_tg(bot_instance, tg_chanel_id: str, document_path: str):
+    with open(document_path, 'rb') as f:
+        bot_instance.send_document(chat_id=tg_chanel_id, document=f)
