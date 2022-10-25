@@ -2,9 +2,9 @@
 Скрипт(main.py) публикует фото космической тематики в телеграм-канал каждые n-часов из заданной директории. 
 
 Поддерживаются следующие источники фото:
-APOD(https://api.nasa.gov/)
-EPIC(https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY)
-spacex(https://api.spacexdata.com/v5/launches/)
+- APOD(https://api.nasa.gov/)
+- EPIC(https://api.nasa.gov/EPIC/api/natural?api_key=DEMO_KEY)
+- spacex(https://api.spacexdata.com/v5/launches/)
 ### Следующие шаги необходимо выполнить для запуска публикации фотографий в телеграм:
 #### Клонировать репозиторий: 
 ```
