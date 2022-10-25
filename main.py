@@ -24,7 +24,7 @@ def get_images_from_folder(images_path) -> list:
 
 def publish_images(bot_instance, images: list, sleep_timer: int) -> None:
     for image in images:
-        common_functions.upload_document_to_tg(bot_instance, telegram_chanel_id, image)
+        common_functions.upload_document_to_tg(bot_instance, telegram_channel_id, image)
         logging.info(f'Publishing images {image} done. Next image will published after {sleep_timer} hours. Sleep.')
         time.sleep(sleep_timer * 3600)
 
@@ -59,7 +59,7 @@ def main():
 if __name__ == '__main__':
     load_dotenv()
     telegram_token = os.environ['TELEGRAM_TOKEN']
-    telegram_chanel_id = os.environ['TELEGRAM_CHANEL_ID']
+    telegram_channel_id = os.environ['TELEGRAM_CHANNEL_ID']
     image_folder = 'images'
 
     bot = telegram.Bot(token=telegram_token)
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.image_path:
-        common_functions.upload_document_to_tg(bot, telegram_chanel_id, args.image_path)
+        common_functions.upload_document_to_tg(bot, telegram_channel_id, args.image_path)
     else:
         main()
