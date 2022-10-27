@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
@@ -26,7 +25,6 @@ def main():
     load_dotenv()
     token = os.getenv('NASA_API_KEY', default='DEMO_KEY')
     image_folder = 'images'
-    Path(image_folder).mkdir(parents=True, exist_ok=True)
     payload = {'api_key': token}
 
     epic_image_urls = fetch_epic_images('https://api.nasa.gov/EPIC/api/natural', token)

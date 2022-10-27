@@ -39,7 +39,7 @@ pip install -r requirements.txt
 #### Переменная окружения `NASA_API_KEY` 
 У скриптов `fetch_epic_images.py` и `fetch_apod_images.py` есть необязательная переменная `NASA_API_KEY`. 
 Указывается в файле .env. В переменную можно заполнить токен полученный на сайте NASA. Если данная переменная
-не указана - будет использоваться токен по-умочанию `DEMO_KEY`
+не указана - будет использоваться токен по-умолчанию `DEMO_KEY`
 #### Пример запуска скрипта fetch_apod_images.py
 ```
 python3 fetch_apod_images.py

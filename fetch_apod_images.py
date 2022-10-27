@@ -1,6 +1,5 @@
 import argparse
 import os
-from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
@@ -27,7 +26,6 @@ def main():
     load_dotenv()
     token = os.getenv('NASA_API_KEY', default='DEMO_KEY')
     image_folder = 'images'
-    Path(image_folder).mkdir(parents=True, exist_ok=True)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--count_to_save", default=5, help="Files count to save.")

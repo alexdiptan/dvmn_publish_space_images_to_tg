@@ -30,9 +30,7 @@ def publish_images(bot_instance, images: list, sleep_timer: int) -> None:
 
 
 def main():
-    Path(image_folder).mkdir(parents=True, exist_ok=True)
     image_files = get_images_from_folder(image_folder)
-    print(image_files)
     connection_try_count = 0
     connection_wait_long = 30
     connection_wait_short = 5
