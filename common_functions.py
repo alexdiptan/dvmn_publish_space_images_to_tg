@@ -20,7 +20,7 @@ def get_file_name_and_file_extension(file_url: str) -> tuple:
     return file_name, file_extension
 
 
-def save_image(img_url: str, image_path: str, payload: dict = {}) -> None:
+def save_image(img_url: str, image_path: str, payload=None) -> None:
     Path(image_path).mkdir(parents=True, exist_ok=True)
     image_name, _ = get_file_name_and_file_extension(img_url)
     image_path = Path.cwd() / image_path / image_name
